@@ -22,6 +22,12 @@ class MovieApplication : Application() {
         val movieService = retrofit.create(MovieService::class.java)
         val movieDatabase = MovieDatabase.getInstance(applicationContext)
 
-        movieRepository = MovieRepository(movieService, movieDatabase)
+        // SEBELUMNYA: MovieRepository(movieService, movieDatabase)
+        // SEKARANG: Tambahkan context agar worker bisa jalan
+        movieRepository = MovieRepository(
+            movieService = movieService,
+            movieDatabase = movieDatabase,
+            context = this
+        )
     }
 }
